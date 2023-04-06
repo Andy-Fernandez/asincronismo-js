@@ -1,10 +1,9 @@
-function saludar(nombre) {
-  alert('Hola ' + nombre);
+function plus(num1, num2) {
+  return num1 + num2;
 }
 
-function procesarEntradaUsuario(callback) {
-  var nombre = prompt('Por favor ingresa tu nombre.');
-  callback(nombre);
+function calc(num1, num2, callback){
+  return callback(num1, num2);
 }
 
-procesarEntradaUsuario(saludar);
+console.log(calc(2, 3, plus))
