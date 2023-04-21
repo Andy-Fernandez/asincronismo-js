@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Productos de la API</title>
+  <style>
+    #products-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .product {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      border: 1px solid #ccc;
+      padding: 10px;
+      margin: 10px;
+      max-width: 300px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Productos</h1>
+  <div id="products-container"></div>
+  <!-- <script>
+    async function getProducts() {
+      const response = await fetch('https://api.escuelajs.co/api/v1/products?offset=40&limit=20');
+      
+      const products = await response.json();
+      return products;
+    }
+
+    function createProductElement(product) {
+      // Creamos un div y le agregamos la clase product
+      const productDiv = document.createElement('div');
+      productDiv.classList.add('product');
+
+      // Creamos un h2 y le agregamos el título del producto
+      // ademas lo ponemos como hijo del div 'product'
+      const productTitle = document.createElement('h2');
+      productTitle.textContent = product.title;
+      productDiv.appendChild(productTitle);
+
+      // Creamos un img y le agregamos la imagen del producto
+      const productImage = document.createElement('img');
+      productImage.src = product.images[0];
+      productImage.alt = product.title;
+      productImage.width = 200;
+      // Agregamos la imagen como hijo del div 'product'
+      productDiv.appendChild(productImage);
+
+      // Creamos un p y le agregamos el precio del producto
+      const productPrice = document.createElement('p');
+      productPrice.textContent = 'Precio: ' + product.price;
+      productDiv.appendChild(productPrice);
+
+      return productDiv;
+    }
+
+    async function displayProducts() {
+      const products = await getProducts();
+      const productsContainer = document.getElementById('products-container');
+
+      products.forEach(product => {
+        const productElement = createProductElement(product);
+        productsContainer.appendChild(productElement);
+      });
+    }
+    displayProducts();
+  </script> -->
+  <!-- Usando XMLHttpRequest: -->
+<script>
+    function getProducts(callback) {
+      const xhr = new XMLHttpRequest();
+      xhr.open('GET', 'https://api.escuelajs.co/api/v1/products?offset=0&limit=10', true);
+      xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+          const products = JSON.parse(xhr.responseText);
+          callback(null, products);
+        } else if (xhr.readyState === 4) {
+          callback(new Error('Error al obtener productos'), null);
+        }
+      };
+      xhr.send();
+    }
+
+    function createProductElement(product) {
+      const productDiv = document.createElement('div');
+      productDiv.classList.add('product');
+
+      const productTitle = document.createElement('h2');
+      productTitle.textContent = product.title;
+      productDiv.appendChild(productTitle);
+
+      const productImage = document.createElement('img');
+      productImage.src = product.images[0];
+      productImage.alt = product.title;
+      productImage.width = 200;
+      productDiv.appendChild(productImage);
+
+      const productPrice = document.createElement('p');
+      productPrice.textContent = 'Precio: ' + product.price;
+      productDiv.appendChild(productPrice);
+
+      return productDiv;
+    }
+
+    function displayProducts() {
+      getProducts((error, products) => {
+        if (error) {
+          console.error('Error al obtener productos:', error);
+          return;
+        }
+
+        const productsContainer = document.getElementById('products-container');
+        products.forEach(product => {
+          const productElement = createProductElement(product);
+          productsContainer.appendChild(productElement);
+        });
+      });
+    }
+
+    displayProducts();
+  </script>
+  
+</body>
+</html>
