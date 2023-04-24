@@ -1,9 +1,15 @@
+// Update a product
 const fetch = require('node-fetch');
 const API = 'https://api.escuelajs.co/api/v1';
 
-function postData(urlApi, data){
+const data = {
+  "title": "New Product Course",
+  "price":999,
+}
+
+function updateData(urlApi, data){
   const response = fetch(urlApi, {
-    method: 'POST',
+    method: 'PUT',
     mode: 'cors',
     credentials: 'same-origin',
     headers: {
@@ -14,16 +20,10 @@ function postData(urlApi, data){
   return response;
 }
 
+data.title = "New Product Course Updated";
+data.price = 1000;
 
 
-const data = {
-  "title": "New Product Course",
-  "price":999,
-  "description": "A description",
-  "categoryId": 1,
-  "images": ["https://placeimg.com/640/480/any"]
-}
-
-postData(`${API}/products`, data)
+updateData(`${API}/products/238`, data)
   .then(response => response.json())
   .then(data => console.log(data));
