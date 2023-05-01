@@ -1,1 +1,6 @@
 /node_modules/
+# Ignorar archivos .DS_Store
+.DS_Store
+
+# Ignorar el archivo "el" en el directorio "src/proyect/assets"
+src/proyect/assets/el
